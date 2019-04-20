@@ -3,7 +3,11 @@ package com.udacity.sandwichclub;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
@@ -43,7 +47,7 @@ public class DetailActivity extends AppCompatActivity {
             return;
         }
 
-        populateUI();
+        populateUI(sandwich);
         Picasso.with(this)
                 .load(sandwich.getImage())
                 .into(ingredientsIv);
@@ -56,7 +60,35 @@ public class DetailActivity extends AppCompatActivity {
         Toast.makeText(this, R.string.detail_error_message, Toast.LENGTH_SHORT).show();
     }
 
-    private void populateUI() {
+    private void populateUI(Sandwich sandwich) {
+
+        TextView origin = findViewById(R.id.origin_tv);
+        TextView alsoKnown = findViewById(R.id.also_known_tv);
+        TextView description = findViewById(R.id.description_tv);
+        TextView ingredients = findViewById(R.id.ingredients_tv);
+        LinearLayout labelOrigin = findViewById(R.id.label_origin_ll);
+        LinearLayout labelAlsoKnown = findViewById(R.id.alsoknown_origin_ll);
+        LinearLayout labelIngredients = findViewById(R.id.ingredients_origin_ll);
+
+        description.setText(sandwich.getDescription());
+
+        if(!TextUtils.isEmpty(sandwich.getPlaceOfOrigin())){
+            origin.setText(sandwich.getPlaceOfOrigin());
+        }else{
+            labelOrigin.setVisibility(View.GONE);
+        }
+
+        if(!sandwich.getAlsoKnownAs().isEmpty()){
+            alsoKnown.setText(TextUtils.join(", ", sandwich.getAlsoKnownAs()));
+        }else {
+            labelAlsoKnown.setVisibility(View.GONE);
+        }
+
+        if(!sandwich.getIngredients().isEmpty()){
+            ingredients.setText(TextUtils.join(", ", sandwich.getIngredients()));
+        }else {
+            labelIngredients.setVisibility(View.GONE);
+        }
 
     }
 }
