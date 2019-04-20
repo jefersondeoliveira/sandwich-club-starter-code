@@ -79,6 +79,7 @@ public class DetailActivity extends AppCompatActivity {
         }
 
         if(!sandwich.getAlsoKnownAs().isEmpty()){
+            //https://alvinalexander.com/android/how-convert-list-strings-objects-to-single-string-in-android
             alsoKnown.setText(TextUtils.join(", ", sandwich.getAlsoKnownAs()));
         }else {
             labelAlsoKnown.setVisibility(View.GONE);
